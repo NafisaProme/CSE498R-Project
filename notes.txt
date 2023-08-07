@@ -1,10 +1,11 @@
-Sentence Segmentation and Tokenization - NLTK and spaCy
+Sentence Segmentation and Tokenization - NLTK and spaCy - splitting text into meaningful segments 
 Word Tokenization
 stemming - removing and redirecting to the base word
 lemmatization - using grammars to reach the base word
 
-spacy and nltk comes handy for the processing and the splitting of the words
-
 pip install nltk
 pip install spacy
 python -m spacy download en
+
+spacy and nltk comes handy for the processing and the splitting of the words
+firstlanguage.in - cloud based model and use it using API calls
