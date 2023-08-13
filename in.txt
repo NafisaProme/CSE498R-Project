@@ -1,3 +1,0 @@
-ID      Name        Email
-1       Zia         incredixia@gmail.com
-2       Prome       prome@gmail.com
