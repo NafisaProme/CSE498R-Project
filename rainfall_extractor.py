@@ -29,12 +29,12 @@ def merge_csv_files(input_folder, output_filename):
 
 
 # Specify the input PDF file and output folder
-year = 2022
-part = 'prices'
+year = 2021
+part = 'rainfall'
 input_pdf_path = f'pdf_datasets/{year}.pdf'
 output_folder = f'output/{year}/{part}'
-start_page = 640
-end_page = start_page + 6
+start_page = 455
+end_page = start_page
 
 
 # Create the output folder if it doesn't exist
