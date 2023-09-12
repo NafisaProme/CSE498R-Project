@@ -23,7 +23,7 @@ def merge_csv_files(input_folder, output_filename):
         if filename.endswith(".csv"):
             csv_path = os.path.join(input_folder, filename)
             df = pd.read_csv(csv_path)
-            all_data = all_data.append(df, ignore_index=True)
+            all_data = pd.concat([all_data, df], ignore_index=True)
 
     all_data.to_csv(output_filename, index=False)
 
@@ -33,7 +33,11 @@ year = 2022
 part = 'temperature'
 input_pdf_path = f'pdf_datasets/{year}.pdf'
 output_folder = f'output/{year}/{part}'
+<<<<<<< HEAD
 start_page = 462
+=======
+start_page = 463
+>>>>>>> d1afbd0e59c2af16a86ad13b2a91817ee86c6b00
 end_page = start_page
 
 
