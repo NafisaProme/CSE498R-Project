@@ -33,7 +33,7 @@ year = 2022
 part = 'temperature'
 input_pdf_path = f'pdf_datasets/{year}.pdf'
 output_folder = f'output/{year}/{part}'
-start_page = 464
+start_page = 462
 end_page = start_page
 
 
