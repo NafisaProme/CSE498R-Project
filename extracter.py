@@ -33,8 +33,8 @@ year = 2022
 part = 'pesticide'
 input_pdf_path = f'pdf_datasets/{year}.pdf'
 output_folder = f'output/{year}/{part}'
-start_page = 482
-end_page = start_page
+start_page = 481
+end_page = start_page + 1
 
 
 # Create the output folder if it doesn't exist
