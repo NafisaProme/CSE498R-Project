@@ -1,4 +1,4 @@
-Name of Commodity,Variation,Year,Month,Rainfall,Temperature,Humidity,Pesticide,Price
+Commodity,Variation,Year,Month,Rainfall,Temperature,Humidity,Pesticide,Price
 Paddy Aman,Fine,2020,January,34,24,81,562,"1,994"
 Paddy Aman,Medium,2020,January,34,24,81,562,"1,753"
 Paddy Aman,Coarse,2020,January,34,24,81,562,"1,588"
