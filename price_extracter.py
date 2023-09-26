@@ -6,13 +6,12 @@ def extract_and_save_pdf_page(pdf_path, output_folder, start_page, end_page):
     with pdfplumber.open(pdf_path) as pdf:
         for i in range(start_page - 1, end_page):
             page = pdf.pages[i]
-            # Assuming there's only one table per page
+    #         # Assuming there's only one table per page
             table = page.extract_tables()[0]
 
-            # Convert extracted table to a DataFrame
+    #         # Convert extracted table to a DataFrame
             df = pd.DataFrame(table[1:], columns=table[0])
-
-            # Save DataFrame as CSV
+    #         # Save DataFrame as CSV
             csv_filename = f"{output_folder}/page_{i + 1}.csv"
             df.to_csv(csv_filename, index=False)
 
@@ -29,13 +28,12 @@ def merge_csv_files(input_folder, output_filename):
 
 
 # Specify the input PDF file and output folder
-year = 2022
+year = 2020
 part = 'prices'
 input_pdf_path = f'pdf_datasets/{year}.pdf'
 output_folder = f'output/{year}/{part}'
-start_page = 640
-end_page = start_page + 4
-
+start_page = 621
+end_page = start_page + 7
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
