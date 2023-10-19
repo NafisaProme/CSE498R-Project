@@ -12,8 +12,9 @@ df = df.drop(columns=['Price'])
 
 # Create a dictionary to store the selected values for each column
 user_inputs = []
+columns = ['Name of Commodity', 'Variation', 'Year', 'Month']
 
-columns = df.columns
+# take the user input for the above columns 
 for column in columns:
     # Get unique values for the current column
     unique_values = df[column].unique()
@@ -30,9 +31,15 @@ for column in columns:
     # Store the selected value in the user_input
     user_inputs.append(ind)
 
+# take the user input for the rest of the columns, which would have integer inputs from the user
+columns += ['Rainfall',	'Temperature', 'Humidity', 'Pesticide']
+for i in range(4, len(columns)):
+    user_input = st.number_input(f"Enter {columns[i]}", min_value=0)
+    user_inputs.append(user_input)
+
 if st.button("Predict Crop Price"):
     # Make a prediction
-    input_data = pd.DataFrame([user_inputs])
+    input_data = pd.DataFrame([user_inputs], columns=columns)
     prediction = model.predict(input_data)[0]
 
     # # Display the prediction
