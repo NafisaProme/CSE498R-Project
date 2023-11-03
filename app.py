@@ -42,9 +42,9 @@ units = ['mm', 'Celsius', 'percentage', 'tonnes']
 # ]
 
 for i in range(4, len(columns)):
-    # if i == 7:
-        user_input = st.number_input(f"Select {columns[i]} in {units[i - 4]}", min_value=0)
-        user_inputs.append(user_input)
+    user_input = st.number_input(f"Select {columns[i]} in {units[i - 4]}", min_value=0)
+    user_inputs.append(user_input)
+
     # else:
     #     user_input = st.selectbox(f"Select {columns[i]} in {units[i - 4]}", options[i - 4])
     #     user_input = user_input.split('(')[1][:-1]
