@@ -1,3 +1,4 @@
+import random
 import streamlit as st
 import pandas as pd
 import joblib
@@ -33,9 +34,24 @@ for column in columns:
 
 # take the user input for the rest of the columns, which would have integer inputs from the user
 columns += ['Rainfall',	'Temperature', 'Humidity', 'Pesticide']
+units = ['mm', 'Celsius', 'percentage', 'tonnes']
+# options = [
+#     ['Very Low (0 - 100)', 'Low (101 - 300)', 'Medium (301 - 600)', 'High (601 - 1000)', 'Very High (1000 - 1350)'],
+#     ['Very Low (5 - 10)', 'Low (11 - 20)', 'Medium (21 - 30)', 'High (31 - 35)', 'Very High (36 - 45)'],
+#     ['Low (51 - 60)', 'Medium (61 - 70)', 'High (71 - 80)', 'Very High (81 - 90)'],
+# ]
+
 for i in range(4, len(columns)):
-    user_input = st.number_input(f"Enter {columns[i]}", min_value=0)
-    user_inputs.append(user_input)
+    # if i == 7:
+        user_input = st.number_input(f"Select {columns[i]} in {units[i - 4]}", min_value=0)
+        user_inputs.append(user_input)
+    # else:
+    #     user_input = st.selectbox(f"Select {columns[i]} in {units[i - 4]}", options[i - 4])
+    #     user_input = user_input.split('(')[1][:-1]
+    #     mn, mx = int(user_input.split(' - ')[0]), int(user_input.split(' - ')[1])
+    #     user_input = random.randint(mn, mx)
+    #     print(user_input)
+    #     user_inputs.append(user_input)
 
 if st.button("Predict Crop Price"):
     # Make a prediction
@@ -43,5 +59,4 @@ if st.button("Predict Crop Price"):
     prediction = model.predict(input_data)[0]
 
     # # Display the prediction
-    st.header("Predicted Crop Price")
     st.write(f"The predicted crop price is: {prediction}")
