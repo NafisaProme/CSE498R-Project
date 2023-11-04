@@ -3,6 +3,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+st.set_page_config(page_title="Crop Price Prediction", page_icon="")
+st.title("Crop Price Prediction")
+
 # Load the pre-trained model
 model = joblib.load("model.pkl")
 
@@ -21,7 +24,7 @@ for column in columns:
     unique_values = df[column].unique()
 
     # Create a Streamlit dropdown for selecting unique values
-    selected_value = st.selectbox(f"Select a value for {column}", unique_values)
+    selected_value = st.selectbox(f"Select {column}", unique_values)
 
     ind = 0
     for i in range(0, len(unique_values)):
@@ -56,7 +59,7 @@ for i in range(4, len(columns)):
 if st.button("Predict Crop Price"):
     # Make a prediction
     input_data = pd.DataFrame([user_inputs], columns=columns)
-    prediction = model.predict(input_data)[0]
+    prediction = round(model.predict(input_data)[0])
 
     # # Display the prediction
     st.write(f"The predicted crop price is: {prediction}")
