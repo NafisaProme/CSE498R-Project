@@ -1,65 +1,65 @@
+import random
 import streamlit as st
 import pandas as pd
 import joblib
 
-
+st.set_page_config(page_title="Crop Price Prediction", page_icon="")
+st.title("Crop Price Prediction")
 
 # Load the pre-trained model
 model = joblib.load("model.pkl")
 
-# Load the dataset
-dataset_path = "dataset_2.csv"
+# Loading the raw dataset
+dataset_path = "dataset_2.csv" 
 df = pd.read_csv(dataset_path)
+df = df.drop(columns=['Price'])
 
-# Center-align inputs
-st.markdown("<h1 style='text-align: center;'>Crop Price Prediction</h1>", unsafe_allow_html=True)
+# Create a dictionary to store the selected values for each column
+user_inputs = []
+columns = ['Name of Commodity', 'Variation', 'Year', 'Month']
 
-# Dropdown for selecting Commodity
-commodity = st.selectbox("Select Commodity", df['Name of Commodity'].unique())
+# take the user input for the above columns 
+for column in columns:
+    # Get unique values for the current column
+    unique_values = df[column].unique()
 
-# Dropdown for selecting Variation
-variation = st.selectbox("Select Variation", df['Variation'].unique())
+    # Create a Streamlit dropdown for selecting unique values
+    selected_value = st.selectbox(f"Select {column}", unique_values)
 
-# Dropdown for selecting Year
-year = st.selectbox("Select Year", df['Year'].unique())
+    ind = 0
+    for i in range(0, len(unique_values)):
+        if selected_value == unique_values[i]:
+            ind = i
+            break
 
-# Dropdown for selecting Month
-month = st.selectbox("Select Month", df['Month'].unique())
+    # Store the selected value in the user_input
+    user_inputs.append(ind)
 
-# Dropdown for Rainfall
-rainfall = st.selectbox("Select Rainfall", df['Rainfall'].unique())
+# take the user input for the rest of the columns, which would have integer inputs from the user
+columns += ['Rainfall',	'Temperature', 'Humidity', 'Pesticide']
+units = ['mm', 'Celsius', 'percentage', 'tonnes']
+# options = [
+#     ['Very Low (0 - 100)', 'Low (101 - 300)', 'Medium (301 - 600)', 'High (601 - 1000)', 'Very High (1000 - 1350)'],
+#     ['Very Low (5 - 10)', 'Low (11 - 20)', 'Medium (21 - 30)', 'High (31 - 35)', 'Very High (36 - 45)'],
+#     ['Low (51 - 60)', 'Medium (61 - 70)', 'High (71 - 80)', 'Very High (81 - 90)'],
+# ]
 
-# Dropdown for Temperature
-temperature = st.selectbox("Select Temperature", df['Temperature'].unique())
+for i in range(4, len(columns)):
+    user_input = st.number_input(f"Select {columns[i]} in {units[i - 4]}", min_value=0)
+    user_inputs.append(user_input)
 
-# Dropdown for Humidity
-humidity = st.selectbox("Select Humidity", df['Humidity'].unique())
+    # else:
+    #     user_input = st.selectbox(f"Select {columns[i]} in {units[i - 4]}", options[i - 4])
+    #     user_input = user_input.split('(')[1][:-1]
+    #     mn, mx = int(user_input.split(' - ')[0]), int(user_input.split(' - ')[1])
+    #     user_input = random.randint(mn, mx)
+    #     print(user_input)
+    #     user_inputs.append(user_input)
 
-# Dropdown for Pesticide
-pesticide = st.selectbox("Select Pesticide", df['Pesticide'].unique())
-
-# Combine user inputs
-user_inputs = {
-    'Name of Commodity': commodity,
-    'Variation': variation,
-    'Year': year,
-    'Month': month,
-    'Rainfall': rainfall,
-    'Temperature': temperature,
-    'Humidity': humidity,
-    'Pesticide': pesticide
-}
-
-# Display the selected inputs
-st.markdown("## Selected Input Parameters")
-st.table(pd.DataFrame([user_inputs]))
-
-# Predict button
 if st.button("Predict Crop Price"):
     # Make a prediction
-    input_data = pd.DataFrame([user_inputs])
-    prediction = model.predict(input_data)[0]
+    input_data = pd.DataFrame([user_inputs], columns=columns)
+    prediction = round(model.predict(input_data)[0])
 
-    # Display the prediction
-    st.header("Predicted Crop Price")
+    # # Display the prediction
     st.write(f"The predicted crop price is: {prediction}")
